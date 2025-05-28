@@ -17,7 +17,7 @@ public class StudenteController {
     private StudenteService studenteService;
 
     // crea un nuovo studente:
-    @PostMapping("/create-studente/")
+    @PostMapping("/create-studente")
     public ResponseEntity<Studente> addStudente(@RequestBody Studente studente) {
         Studente studenteToAdd = studenteService.addStudente(studente);
         return ResponseEntity.ok(studenteToAdd);
@@ -32,9 +32,25 @@ public class StudenteController {
 
     // ottieni uno studente per id:
     @GetMapping("/find-studente/{id}")
-    public Optional<Studente> getStudenteById(@PathVariable Long id) {
+    public ResponseEntity<Optional<Studente>> getStudenteById(@PathVariable Long id) {
         Optional<Studente> studenteOptional = studenteService.getStudenteById(id);
-        return studenteOptional;
+
+        if (studenteOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(studenteOptional);
+    }
+
+    // aggiorna uno studente per id:
+    @PutMapping("/update-studente/{id}")
+    public ResponseEntity<Optional<Studente>> updateStudenteById(@PathVariable Long id,
+                                                                 @RequestParam Studente studente) {
+        Optional<Studente> studenteOptional = studenteService.getStudenteById(id);
+
+        if (studenteOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(studenteOptional);
     }
 
     // cancella uno studente dal database:

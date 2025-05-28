@@ -17,7 +17,7 @@ public class IndirizzoController {
     private IndirizzoService indirizzoService;
 
     // crea un nuovo indirizzo:
-    @PostMapping("/create-indirizzo/")
+    @PostMapping("/create-indirizzo")
     public ResponseEntity<Indirizzo> addIndirizzo(@RequestBody Indirizzo indirizzo) {
         Indirizzo indirizzoToAdd = indirizzoService.addIndirizzo(indirizzo);
         return ResponseEntity.ok(indirizzoToAdd);
@@ -43,7 +43,8 @@ public class IndirizzoController {
 
     // modifica un indirizzo esistente:
     @PutMapping("/update-indirizzo/{id}")
-    public ResponseEntity<Optional<Indirizzo>> updateIndirizzo(@PathVariable Long id, @RequestBody Indirizzo indirizzoDetails) {
+    public ResponseEntity<Optional<Indirizzo>> updateIndirizzo(@PathVariable Long id,
+                                                               @RequestBody Indirizzo indirizzoDetails) {
         Optional<Indirizzo> indirizzoToUpdate = indirizzoService.updateIndirizzo(id, indirizzoDetails);
 
         if (indirizzoToUpdate.isPresent()) {

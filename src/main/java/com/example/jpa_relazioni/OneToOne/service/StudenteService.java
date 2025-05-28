@@ -33,6 +33,19 @@ public class StudenteService {
         return studenteRepository.findById(id);
     }
 
+    // aggiorna uno studente per id:
+    public Optional<Studente> updateStudenteById(Long id, Studente studenteDetails) {
+        Optional<Studente> studenteOptional = studenteRepository.findById(id);
+
+        if (studenteOptional.isPresent()) {
+            studenteOptional.get().setNome(studenteDetails.getNome());
+            studenteOptional.get().setIndirizzo(studenteDetails.getIndirizzo());
+            return studenteOptional;
+        } else {
+            return Optional.empty();
+        }
+    }
+
     // cancella uno studente dal database:
     public Optional<Studente> deleteStudente(Long id) {
         Optional<Studente> studenteOptional = studenteRepository.findById(id);
