@@ -10,16 +10,11 @@ public class Autore {
 
     private String nome;
 
-    @ManyToOne
-    @JoinColumn(name = "libro_id")
-    private Libro libro;
-
     public Autore() {}
 
-    public Autore(Long id, String nome, Libro libro) {
+    public Autore(Long id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.libro = libro;
     }
 
     public Long getId() {
@@ -36,13 +31,5 @@ public class Autore {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public Libro getLibro() {
-        return libro;
-    }
-
-    public void setLibro(Libro libro) {
-        this.libro = libro;
     }
 }

@@ -12,7 +12,8 @@ public class Libro {
 
     private String titolo;
 
-    @OneToMany(mappedBy = "libro")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "libro_id")
     private List<Autore> autori;
 
     public Libro() {}

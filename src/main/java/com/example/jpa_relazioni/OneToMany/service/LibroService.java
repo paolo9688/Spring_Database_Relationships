@@ -1,5 +1,6 @@
 package com.example.jpa_relazioni.OneToMany.service;
 
+import com.example.jpa_relazioni.OneToMany.entity.Libro;
 import com.example.jpa_relazioni.OneToMany.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,4 +10,9 @@ public class LibroService {
 
     @Autowired
     private LibroRepository libroRepository;
+
+    // crea un nuovo libro:
+    public Libro addLibro(Libro libro) {
+        return libroRepository.save(libro);
+    }
 }
