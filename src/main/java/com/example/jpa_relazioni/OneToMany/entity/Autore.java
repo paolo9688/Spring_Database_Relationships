@@ -2,6 +2,8 @@ package com.example.jpa_relazioni.OneToMany.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class Autore {
     @Id
@@ -31,5 +33,17 @@ public class Autore {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Autore autore = (Autore) o;
+        return Objects.equals(id, autore.id) && Objects.equals(nome, autore.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome);
     }
 }

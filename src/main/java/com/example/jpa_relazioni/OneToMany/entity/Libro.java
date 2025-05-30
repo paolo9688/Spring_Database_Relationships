@@ -47,4 +47,23 @@ public class Libro {
     public void setAutori(List<Autore> autori) {
         this.autori = autori;
     }
+
+    // controlla che un autore sia già presente nella lista autori:
+    public boolean checkAutore(Autore autore) {
+        return autori.contains(autore);
+    }
+
+    // aggiungi un autore alla lista autori:
+    public void addAutore(Autore autore) {
+        if (!checkAutore(autore)) {
+            autori.add(autore);
+        }
+    }
+
+    // rimuovi un autore dalla lista autori:
+    public void removeAutore(Autore autore) {
+        if (checkAutore(autore)) {
+            autori.remove(autore);
+        }
+    }
 }

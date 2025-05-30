@@ -47,4 +47,34 @@ public class LibroService {
         libro.setAutori(autoriDaAssociare);
         return libroRepository.save(libro);
     }
+
+    // aggiungi un autore ad un libro dopo aver creato il libro:
+    public Optional<Libro> aggiungiAutoreAlLibro(Long libroId, Long autoreId) {
+        Optional<Libro> optionalLibro = libroRepository.findById(libroId);
+        Optional<Autore> optionalAutore = autoreRepository.findById(autoreId);
+
+        if (optionalLibro.isPresent() && optionalAutore.isPresent()) {
+            Libro libro = optionalLibro.get();
+            Autore autore = optionalAutore.get();
+
+            libro.addAutore(autore);
+            return Optional.of(libroRepository.save(libro));
+        }
+        return Optional.empty();
+    }
+
+    // rimuovi un autore da un libro dopo aver creato il libro:
+    public Optional<Libro> rimuoviAutoreAlLibro(Long libroId, Long autoreId) {
+        Optional<Libro> optionalLibro = libroRepository.findById(libroId);
+        Optional<Autore> optionalAutore = autoreRepository.findById(autoreId);
+
+        if (optionalLibro.isPresent() && optionalAutore.isPresent()) {
+            Libro libro = optionalLibro.get();
+            Autore autore = optionalAutore.get();
+
+            libro.removeAutore(autore);
+            return Optional.of(libroRepository.save(libro));
+        }
+        return Optional.empty();
+    }
 }
