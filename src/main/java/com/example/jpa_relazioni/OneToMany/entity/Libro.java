@@ -49,7 +49,7 @@ public class Libro {
     }
 
     // controlla che un autore sia già presente nella lista autori:
-    public boolean checkAutore(Autore autore) {
+    private boolean checkAutore(Autore autore) {
         return autori.contains(autore);
     }
 
