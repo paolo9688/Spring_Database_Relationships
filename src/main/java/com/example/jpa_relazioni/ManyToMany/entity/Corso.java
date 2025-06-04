@@ -13,15 +13,18 @@ public class Corso {
 
     private String nome;
 
+    private boolean deleted = false;
+
     @ManyToMany(mappedBy = "corsi")
     @JsonIgnore
     private List<StudenteDevelhope> studenti;
 
     public Corso() {}
 
-    public Corso(Long id, String nome, List<StudenteDevelhope> studenti) {
+    public Corso(Long id, String nome, boolean deleted, List<StudenteDevelhope> studenti) {
         this.id = id;
         this.nome = nome;
+        this.deleted = deleted;
         this.studenti = studenti;
     }
 
@@ -47,5 +50,13 @@ public class Corso {
 
     public void setStudenti(List<StudenteDevelhope> studenti) {
         this.studenti = studenti;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }
