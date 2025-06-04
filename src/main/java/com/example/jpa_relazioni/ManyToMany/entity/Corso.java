@@ -1,5 +1,6 @@
 package com.example.jpa_relazioni.ManyToMany.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class Corso {
     private String nome;
 
     @ManyToMany(mappedBy = "corsi")
+    @JsonIgnore
     private List<StudenteDevelhope> studenti;
 
     public Corso() {}

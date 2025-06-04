@@ -12,7 +12,7 @@ public class StudenteDevelhope {
 
     private String nome;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "iscrizioni",
             joinColumns = @JoinColumn(name = "studente_id"),
             inverseJoinColumns = @JoinColumn(name = "corso_id"))
