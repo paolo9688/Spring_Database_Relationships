@@ -1,6 +1,5 @@
 package com.example.jpa_relazioni.ManyToMany.service;
 
-import com.example.jpa_relazioni.ManyToMany.entity.Corso;
 import com.example.jpa_relazioni.ManyToMany.entity.StudenteDevelhope;
 import com.example.jpa_relazioni.ManyToMany.exception.ResourceNotFoundException;
 import com.example.jpa_relazioni.ManyToMany.repository.StudenteDevelhopeRepository;
@@ -21,7 +20,7 @@ public class StudenteDevelhopeService {
         return studenteDevelhopeRepository.save(studenteDevelhope);
     }
 
-    // ritorna uno studente per id:
+    // ritorna uno studente specifico per id:
     public Optional<StudenteDevelhope> getStudenteById(Long id) {
         return studenteDevelhopeRepository.findById(id);
     }
@@ -31,18 +30,42 @@ public class StudenteDevelhopeService {
         return studenteDevelhopeRepository.findAll();
     }
 
-    // aggiorna uno studente esistente (da testare):
-    public StudenteDevelhope updateStudente(Long id, StudenteDevelhope studenteDetails) {
+    // aggiorna uno studente esistente:
+    public Optional<StudenteDevelhope> updateStudente(Long id, StudenteDevelhope studenteDetails) {
         Optional<StudenteDevelhope> studenteOptional = studenteDevelhopeRepository.findById(id);
+
         if (studenteOptional.isPresent()) {
-            StudenteDevelhope existingStudente = studenteOptional.get();
-            existingStudente.setNome(studenteDetails.getNome());
-            existingStudente.setCorsi(studenteDetails.getCorsi());
-            return studenteDevelhopeRepository.save(existingStudente);
+            studenteOptional.get().setNome(studenteDetails.getNome());
+            // studenteOptional.get().setCorsi(studenteDetails.getCorsi());
+            StudenteDevelhope savedstudente = studenteDevelhopeRepository.save(studenteOptional.get());
+            return Optional.of(savedstudente);
         } else {
-            throw new ResourceNotFoundException("Studente con ID " + id + " non trovato.");
+            return Optional.empty();
         }
     }
+
+    /*
+    public StudenteDevelhope updateStudente(Long id, StudenteDevelhope updatedStudente) {
+        // Cerca lo studente per ID. Restituisce un Optional.
+        Optional<StudenteDevelhope> existingStudenteOptional = studenteDevelhopeRepository.findById(id);
+
+        // Verifica se l'Optional contiene un valore (cioè, lo studente è stato trovato).
+        if (existingStudenteOptional.isPresent()) {
+            StudenteDevelhope existingStudente = existingStudenteOptional.get(); // Ottieni lo studente dall'Optional
+
+            // Aggiorna solo i campi che desideri modificare
+            existingStudente.setNome(updatedStudente.getNome());
+            // Se vuoi gestire anche l'aggiornamento della lista dei corsi, puoi farlo qui:
+            // existingStudente.setCorsi(updatedStudente.getCorsi());
+
+            // Salva lo studente aggiornato nel database
+            return studenteDevelhopeRepository.save(existingStudente);
+        } else {
+            // Se lo studente non viene trovato, restituisci null
+            return null;
+        }
+    }
+    */
 
     // cancella uno studente per id:
     public boolean deleteStudente(Long id) {

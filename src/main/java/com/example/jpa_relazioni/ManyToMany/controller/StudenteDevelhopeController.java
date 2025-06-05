@@ -42,18 +42,15 @@ public class StudenteDevelhopeController {
         return ResponseEntity.ok(studentiDevelhope);
     }
 
-    // aggiorna uno studente esistente:
-    /*
-    * Grazie all'annotazione @ResponseStatus sulla ResourceNotFoundException,
-    * il controller può essere semplificato notevolmente.
-    * Non abbiamo più bisogno di un if/else per controllare il valore di ritorno null,
-    * Spring si occuperà di mappare l'eccezione allo status HTTP 404.
-    */
     @PutMapping("/update-studente/{id}")
-    public ResponseEntity<StudenteDevelhope> updateStudente(@PathVariable Long id,
-                                                            @RequestBody StudenteDevelhope studente) {
-        StudenteDevelhope updatedStudente = studenteDevelhopeService.updateStudente(id, studente);
-        return new ResponseEntity<>(updatedStudente, HttpStatus.OK);
+    public ResponseEntity<Optional<StudenteDevelhope>> updateStudente(@PathVariable Long id,
+                                                                      @RequestBody StudenteDevelhope studenteDetails) {
+        Optional<StudenteDevelhope> studenteOptional = studenteDevelhopeService.updateStudente(id, studenteDetails);
+
+        if (studenteOptional.isPresent()) {
+            return ResponseEntity.ok(studenteOptional);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     // cancella uno studente per id (cancellazione fisica):

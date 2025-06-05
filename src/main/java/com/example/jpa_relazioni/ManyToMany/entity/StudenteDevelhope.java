@@ -26,6 +26,11 @@ public class StudenteDevelhope {
         this.corsi = corsi;
     }
 
+    public StudenteDevelhope(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
     public Long getId() {
         return id;
     }
